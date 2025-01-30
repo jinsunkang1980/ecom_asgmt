@@ -1,0 +1,28 @@
+<?php
+include 'includes/db.php'; // Database connection
+include 'includes/header.php'; // Include the header
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $hash_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insert the user into the database
+    $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $name, $email, $hash_password);
+
+    if ($stmt->execute()) {
+        header('Location: login.php'); // Redirect to login page
+        exit;
+    } else {
+        $error_message = "Error: " . $stmt->error;
+    }
+}
+
+// Display error messages
+if (!empty($error_message)) {
+    echo "<p style='color: red; text-align: center;'>$error_message</p>";
+}
+?>
+
