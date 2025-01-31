@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error_message = "Invalid password.";
         }
     } else {
-        $error_message = "No user found with this email.";
+        $error_message = "No user found with this email. Please register.";
     }
 
     $stmt->close();
