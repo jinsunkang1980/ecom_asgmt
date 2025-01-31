@@ -242,8 +242,56 @@ if ($result->num_rows > 0) {
     </div>
 
     <?php
+    
 } else {
-    echo "<p>Your cart is empty. <a href='products.php'>Shop now</a>.</p>";
+    echo "<style>
+    .empty-cart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    }
+
+    .empty-cart-box {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 400px;
+        max-width: 90%;
+        border: 1px solid #ddd;
+    }
+
+    .empty-cart-box p {
+        font-size: 1.2em;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .shop-now-button {
+        display: inline-block;
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: black;
+        transition: background 0.3s;
+    }
+
+    .shop-now-button:hover {
+        background-color: #333;
+    }
+</style>";
+
+echo "<div class='empty-cart-container'>
+        <div class='empty-cart-box'>
+            <p>Your cart is empty.</p>
+            <a href='products.php' class='shop-now-button'>Shop Now</a>
+        </div>
+      </div>";
+
 }
 
 include 'includes/footer.php';
