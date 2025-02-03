@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 include 'includes/header.php';
 include 'includes/db.php';
 
-// Ensure the user is logged in
+
 if (!isset($_COOKIE['user_id'])) {
     echo "<p>Please <a href='login.php'>login</a> to proceed with checkout.</p>";
     include 'includes/footer.php';
@@ -14,13 +14,13 @@ if (!isset($_COOKIE['user_id'])) {
 
 $user_id = $_COOKIE['user_id'];
 
-// Process the order
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    // Fetch cart items
+   
     $stmt = $conn->prepare("SELECT c.product_id, c.quantity, p.price 
         FROM cart c 
         JOIN products p ON c.product_id = p.id 
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
-// Display the checkout form
+
 echo "<style>
     /* Center the checkout box */
     .checkout-container {
