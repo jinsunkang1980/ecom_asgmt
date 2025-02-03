@@ -10,7 +10,7 @@ if (!isset($_COOKIE['user_id']) || !isset($_GET['order_id'])) {
 $order_id = intval($_GET['order_id']);
 $user_id = $_COOKIE['user_id'];
 
-// Fetch order details
+
 $stmt = $conn->prepare("SELECT total as total_price, created_at as order_date FROM orders WHERE id = ? AND user_id = ?");
 $stmt->bind_param("ii", $order_id, $user_id);
 $stmt->execute();
@@ -19,12 +19,12 @@ $result = $stmt->get_result();
 ?>
 
 <style>
-    /* Center everything */
+    
     .order-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 80vh; /* Keeps it centered in the viewport */
+        height: 80vh; 
     }
 
     .order-box {
