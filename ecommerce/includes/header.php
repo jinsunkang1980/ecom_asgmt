@@ -13,14 +13,16 @@
 <nav class="navbar">
     <div class="nav-left">
         <a href="index.php">Home</a>
-        <a href="products.php">Products</a>
+        <a href="products.php">All Products</a>
+        <a href="category.php?id=1">Accessories</a>
+        <a href="category.php?id=2">Tops</a>
+        <a href="category.php?id=3">Botooms</a>
         <a href="cart.php">Cart</a>
     </div>
-
     <div class="nav-right">
         <?php if (isset($_COOKIE['user_id'])): ?>
             <div class="user-info">
-                <span class="username">Hello, <?php echo htmlspecialchars($_COOKIE['user_name']); ?>!</span>
+                <span class="username">Hello, <?= htmlspecialchars($_COOKIE['user_name']) ?>!</span>
                 <a href="logout.php" class="logout-btn">Logout</a>
             </div>
         <?php else: ?>
@@ -31,6 +33,8 @@
         <?php endif; ?>
     </div>
 </nav>
+
+
 
 <style>
     body {
