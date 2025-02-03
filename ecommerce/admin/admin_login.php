@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Fetch admin details
+
     $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ? AND role = 'admin'");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_result($admin_id, $db_password);
         $stmt->fetch();
 
-        // Verify password
+        
         if (password_verify($password, $db_password)) {
             $_SESSION['admin_id'] = $admin_id;
             header("Location: admin_dashboard.php");
