@@ -2,7 +2,7 @@
 include '../includes/header.php';
 include '../includes/db.php';
 
-// Fetch the product details
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
@@ -20,14 +20,14 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-// Update the product details
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description'];
     $newImage = $_FILES['image']['name'];
 
-    // Handle image upload
+  
     if (!empty($newImage)) {
         $target = "../uploads/" . basename($newImage);
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath = $product['image']; // Keep the old image if no new image is uploaded
     }
 
-    // Update the product in the database
+  
     $stmt = $conn->prepare("UPDATE products SET name = ?, price = ?, description = ?, image = ? WHERE id = ?");
     $stmt->bind_param("sdssi", $name, $price, $description, $imagePath, $id);
 
