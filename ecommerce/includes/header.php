@@ -75,11 +75,10 @@
         align-items: center;
     }
 
-    /* 🔥 Fixed: Login & Register now properly aligned */
     .nav-right {
-    display: flex;
-    align-items: center;
-    margin-right: 40px;
+        display: flex;
+        align-items: center;
+        margin-right: 40px;
 }
     }
 
