@@ -8,18 +8,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Prepare the SQL statement to fetch user details securely
+   
     $stmt = $conn->prepare("SELECT id, password, name FROM users WHERE email = ?");
     $stmt->bind_param("s", $email); 
     $stmt->execute();
     $stmt->store_result();
 
-    // Check if the user exists
+   
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($user_id, $db_password, $user_name);
         $stmt->fetch();
         
-        // Verify password securely
+       
         if (password_verify($password, $db_password)) {
             setcookie('user_id', $user_id, time() + (86400 * 7), '/');
             setcookie('user_name', $user_name, time() + (86400 * 7), '/');
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 }
 
-// Display error message if login fails
+
 if (!empty($error_message)) {
     echo "<p style='color: red; text-align: center;'>$error_message</p>";
 }
@@ -60,7 +60,7 @@ if (!empty($error_message)) {
             justify-content: center;
         }
 
-        /* Navigation Bar */
+        
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -85,7 +85,7 @@ if (!empty($error_message)) {
             text-decoration: underline;
         }
 
-        /* Centered Login Box */
+       
         .login-container {
             display: flex;
             flex-direction: column;
@@ -151,7 +151,7 @@ if (!empty($error_message)) {
             text-decoration: underline;
         }
 
-        /* "Why Login?" Box */
+        
         .login-info-box {
             width: 100%;
             padding: 20px;
