@@ -2,18 +2,18 @@
 session_start();
 include '../includes/db.php';
 
-// Redirect to admin login if not logged in
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit;
 }
 
-// Fetch all products
+
 $products_sql = "SELECT * FROM products";
 $products_result = $conn->query($products_sql);
 $products = $products_result->fetch_all(MYSQLI_ASSOC);
 
-// Fetch all orders
+
 $orders_sql = "SELECT o.id, o.user_id, o.total, o.created_at, u.name AS user_name 
                FROM orders o 
                JOIN users u ON o.user_id = u.id";
