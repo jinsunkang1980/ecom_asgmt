@@ -48,12 +48,27 @@ CREATE TABLE order_items (
     
 );
 
-INSERT INTO ccbst.products (name, price, description, image) VALUES
-('Black Mesh Monika Dress', 180.00, 'With a panelled corset-style top, that cinches your waist to create a beautifully structured outline, which then drapes, from the scalloped edging, into a gorgeous pleated tulle mesh skirt.', 'uploads/cloth1.jpeg'),
-('Artemis Slip Skirt', 210, 'The Artemis Beading Slip Skirt, crafted from delicate Japanese nylon tulle, is the seasons ultimate Have to Have..', 'uploads/cloth2.jpeg'),
-('Dominic Pinstripe Liam Vest', 190, 'This assortment serves as your WOFs (Without Fails) and are designed to create space in your wardrobe for creativity and experimentation..', 'uploads/cloth3.jpeg'),
-('Dominic Pinstripe Reese Sculpted Trouser', 325.00, 'This assortment serves as your WOFs (Without Fails) and are designed to create space in your wardrobe for creativity and experimentation..', 'uploads/cloth4.jpeg'),
-('Crispy Nylon Maxi Skirt', 230.00, 'This assortment serves as your WOFs (Without Fails) and are designed to create space in your wardrobe for creativity and experimentation.', 'uploads/cloth5.jpeg');
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
 
--- INSERT INTO ccbst.users (name, email, password) VALUES
--- ('admin', 'admin@admin.com', 'admin');
+
+ALTER TABLE products ADD COLUMN category_id INT;
+
+ALTER TABLE users ADD COLUMN role ENUM('user', 'admin') DEFAULT 'user';
+
+INSERT INTO categories (name) VALUES 
+('Accessories'), 
+('Tops'), 
+('Bottoms'); 
+
+INSERT INTO ccbst.products (name, price, description, image, category_id) VALUES
+('Prada Aimée large leather shoulder bag', 4300.00, 'The sophisticated minimalism of the 90s inspires the new Prada Aimée bag, portrayed in the Fall/Winter 2024 Campaign.', 'uploads/bags2.jpg', 1),
+('Medium Prada Galleria Saffiano leather bag', 6300, 'Production of the Prada Galleria bag, composed of 83 pieces, is an authentic fusion between industrial precision.', 'uploads/bags1.jpg', 1),
+('Dominic Pinstripe Liam Vest', 190, 'This assortment serves as your WOFs (Without Fails) and are designed to create space in your wardrobe for creativity and experimentation..', 'uploads/cloth3.jpeg', 2),
+('Dominic Pinstripe Reese Sculpted Trouser', 325.00, 'This assortment serves as your WOFs (Without Fails) and are designed to create space in your wardrobe for creativity and experimentation.', 'uploads/cloth4.jpeg', 2),
+('Crispy Nylon Maxi Skirt', 230.00, 'This assortment serves as your WOFs (Without Fails) and are designed to create space in your wardrobe for creativity and experimentation.', 'uploads/cloth5.jpeg', 3);
+
+INSERT INTO users (name, email, password, role) 
+VALUES ('Admin', 'admin@example.com', '$2y$10$msyr4B2I/MEXQnJyWtTPeOR.w73ccG6cjz0dLgYZxRBfjSE1P1F3q', 'admin');
