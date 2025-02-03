@@ -2,7 +2,7 @@
 session_start();
 include '../includes/db.php';
 
-// Redirect to admin login if not logged in
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit;
@@ -15,18 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $image = $_FILES['image']['name'];
     $target = "../uploads/" . basename($image);
 
-    // Validate file type
+   
     $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
     if (!in_array($_FILES['image']['type'], $allowed_types)) {
         echo "<p>Invalid file type. Only JPG, PNG, and GIF are allowed.</p>";
         exit;
     }
 
-    // Handle file upload
+    
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
         $image_path = "uploads/" . $image;
 
-        // Insert product into the database
+  
         $stmt = $conn->prepare("INSERT INTO products (name, description, price, image) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssds", $name, $description, $price, $image_path);
         $stmt->execute();
