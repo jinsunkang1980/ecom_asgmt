@@ -4,7 +4,7 @@ include '../includes/db.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Fetch the product to get the image path
+   
     $stmt = $conn->prepare("SELECT image FROM products WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
         exit;
     }
 
-    // Delete the product from the database
+    
     $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
     $stmt->bind_param("i", $id);
 
