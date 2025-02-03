@@ -67,7 +67,7 @@ if (!empty($error_message)) {
             justify-content: center;
         }
 
-        /* Navigation Bar */
+    
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -92,7 +92,7 @@ if (!empty($error_message)) {
             text-decoration: underline;
         }
 
-        /* Centered Register Container */
+     
         .register-container {
             display: flex;
             flex-direction: column;
@@ -156,7 +156,7 @@ if (!empty($error_message)) {
             text-decoration: underline;
         }
 
-        /* "Why Register?" Box */
+      
         .register-info-box {
             width: 100%;
             padding: 20px;
@@ -176,17 +176,17 @@ if (!empty($error_message)) {
            font-size: 16px;
            font-weight: bold;
            text-align: center;
-        margin-bottom: 10px; /* Space between error and "Register" */
+        margin-bottom: 10px; 
 }
     </style>
 </head>
 <body>
    
-    <!-- Register Container -->
+    
     <div class="register-container">
-        <!-- Registration Form -->
+     
         <div class="register-box">
-    <!-- 🔥 Display Error Message Above Register Title -->
+    
     <?php if (!empty($error_message)) : ?>
         <p class="error-message"><?php echo $error_message; ?></p>
     <?php endif; ?>
