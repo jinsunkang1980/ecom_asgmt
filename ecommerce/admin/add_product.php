@@ -1,11 +1,17 @@
 <?php
-include '../includes/header.php';
+session_start();
 include '../includes/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Redirect to admin login if not logged in
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: admin_login.php");
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
-    $price = $_POST['price'];
     $description = $_POST['description'];
+    $price = $_POST['price'];
     $image = $_FILES['image']['name'];
     $target = "../uploads/" . basename($image);
 
@@ -17,34 +23,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Handle file upload
-    if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-            // Insert into database
-            $imagePath = "uploads/" . $image;
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+        $image_path = "uploads/" . $image;
 
-            $stmt = $conn->prepare("INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("sdss", $name, $price, $description, $imagePath);
-            $stmt->execute();
-            header("Location: products.php");
-            exit;
-        } else {
-            echo "<p>Failed to move the uploaded file to the target directory.</p>";
-        }
+        // Insert product into the database
+        $stmt = $conn->prepare("INSERT INTO products (name, description, price, image) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssds", $name, $description, $price, $image_path);
+        $stmt->execute();
+
+        header("Location: admin_dashboard.php");
+        exit;
     } else {
-        echo "<p>Error uploading file: " . $_FILES['image']['error'] . "</p>";
+        echo "<p>Failed to upload image.</p>";
     }
 }
 ?>
 
-<h1>Add Product</h1>
-<form method="POST" enctype="multipart/form-data">
-    <label>Name:</label>
-    <input type="text" name="name" required><br>
-    <label>Price:</label>
-    <input type="number" step="0.01" name="price" required><br>
-    <label>Description:</label>
-    <textarea name="description" required></textarea><br>
-    <label>Image:</label>
-    <input type="file" name="image" required><br>
-    <button type="submit">Add Product</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .add-product-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-product-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .add-product-form input,
+        .add-product-form textarea,
+        .add-product-form button {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .add-product-form button {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .add-product-form button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Product</h1>
+    <div class="add-product-form">
+        <form method="POST" action="" enctype="multipart/form-data">
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+
+            <label for="image">Product Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+</body>
+</html>
