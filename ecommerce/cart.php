@@ -2,7 +2,7 @@
 include 'includes/header.php';
 include 'includes/db.php';
 
-// Start session for managing user-specific cart
+
 if (!isset($_COOKIE['user_id'])) {
     echo "<style>
         .empty-cart-container {
@@ -59,7 +59,7 @@ if (!isset($_COOKIE['user_id'])) {
 
 $user_id = $_COOKIE['user_id'];
 
-// Add item to cart
+
 if (isset($_GET['add'])) {
     $product_id = intval($_GET['add']);
     $stmt = $conn->prepare("SELECT * FROM cart WHERE user_id = ? AND product_id = ?");
@@ -80,7 +80,7 @@ if (isset($_GET['add'])) {
     exit();
 }
 
-// Remove item from cart
+
 if (isset($_GET['remove'])) {
     $cart_id = intval($_GET['remove']);
     $stmt = $conn->prepare("DELETE FROM cart WHERE id = ? AND user_id = ?");
@@ -90,11 +90,11 @@ if (isset($_GET['remove'])) {
     exit();
 }
 
-// Display the cart
+
 echo "<h1 class='cart-title'>Your Cart</h1>";
 
 
-// Add CSS for grid layout and styling
+
 echo "<style>
     .cart-container {
         display: grid;
@@ -135,11 +135,11 @@ echo "<style>
         word-wrap: break-word;
         text-align: center;
         font-size: 0.9em;
-        flex-grow: 1; /* Ensures content stretches but doesn't push footer */
+        flex-grow: 1; 
         margin-bottom: 10px;
     }
 
-    /* Ensures Price, Quantity, Total, and Remove stay aligned at the bottom */
+    
     .cart-item-footer {
         width: 100%;
         text-align: center;
@@ -168,7 +168,7 @@ echo "<style>
         background-color: darkred;
     }
 
-    /* Centering the total price and checkout button */
+    
     .cart-summary {
         text-align: center;
         margin-top: 30px;
@@ -211,7 +211,7 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $total_price = 0;
-    echo '<div class="cart-container">'; // Open the cart grid container
+    echo '<div class="cart-container">'; 
 
     while ($row = $result->fetch_assoc()) {
         $total_item_price = $row['price'] * $row['quantity'];
