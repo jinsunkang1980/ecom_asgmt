@@ -2,7 +2,7 @@
 include 'includes/header.php';
 include 'includes/db.php';
 
-// Fetch all categories
+
 $category_sql = "SELECT * FROM categories";
 $category_result = $conn->query($category_sql);
 
@@ -11,7 +11,7 @@ if (!$category_result) {
 }
 $categories = $category_result->fetch_all(MYSQLI_ASSOC);
 
-// Fetch products
+
 $selected_category = isset($_GET['category']) ? intval($_GET['category']) : null;
 $product_sql = "SELECT p.*, c.name AS category_name 
                 FROM products p 
@@ -45,7 +45,7 @@ $products = $product_result->fetch_all(MYSQLI_ASSOC);
     <style>
         .products-container {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* ✅ Fixed 5 columns */
+            grid-template-columns: repeat(5, 1fr); 
             gap: 20px;
             margin: 20px auto;
             max-width: 1200px;
@@ -54,13 +54,13 @@ $products = $product_result->fetch_all(MYSQLI_ASSOC);
 
         @media (max-width: 1200px) {
             .products-container {
-                grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+                grid-template-columns: repeat(3, 1fr); 
             }
         }
 
         @media (max-width: 768px) {
             .products-container {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+                grid-template-columns: repeat(2, 1fr); 
             }
         }
 
@@ -68,7 +68,7 @@ $products = $product_result->fetch_all(MYSQLI_ASSOC);
             text-align: center;
             font-size: 2em;
             font-weight: bold;
-            margin: 50px 0 20px 0; /* ✅ Added margin */
+            margin: 50px 0 20px 0; 
         }
 
         .product {
@@ -93,7 +93,7 @@ $products = $product_result->fetch_all(MYSQLI_ASSOC);
 
         .category-filter {
             text-align: center;
-            margin: 20px 0; /* ✅ Ensure filter is visible */
+            margin: 20px 0; 
         }
 
         .product-footer a {
