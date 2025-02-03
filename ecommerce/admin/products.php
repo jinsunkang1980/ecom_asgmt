@@ -2,7 +2,7 @@
 include '../includes/header.php';
 include '../includes/db.php';
 
-// Fetch all products
+
 $stmt = $conn->prepare("SELECT * FROM products");
 $stmt->execute();
 $result = $stmt->get_result();
