@@ -2,13 +2,13 @@
 include 'includes/header.php';
 include 'includes/db.php';
 
-// Get the category ID from the URL
+
 $category_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Get the search term from the URL (if any)
+
 $search_term = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-// Fetch the category name
+
 $category_sql = "SELECT name FROM categories WHERE id = ?";
 $stmt = $conn->prepare($category_sql);
 $stmt->bind_param("i", $category_id);
@@ -22,7 +22,7 @@ if (!$category) {
     exit();
 }
 
-// Fetch products for the selected category and search term
+
 $product_sql = "SELECT p.*, c.name AS category_name 
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
